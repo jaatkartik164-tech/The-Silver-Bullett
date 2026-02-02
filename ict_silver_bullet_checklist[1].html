@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Silver Bullet">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="description" content="ICT Silver Bullet Trading Checklist - Track your trades with precision">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+    
+    <title>ICT Silver Bullet - Decision Flow Checklist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1d3f 50%, #0a0e27 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+            color: #e4e4e7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #18181b 0%, #27272a 100%);
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; transform: translateX(-10%); }
+            50% { opacity: 0.6; transform: translateX(10%); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: rgba(255,255,255,0.95);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .header .tagline {
+            font-size: 1em;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .quote-section {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            line-height: 1.6;
+            color: #f1f5f9;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 3em;
+            color: #3b82f6;
+            position: absolute;
+            left: -30px;
+            top: -10px;
+            opacity: 0.3;
+        }
+
+        .quote-author {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.95em;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.05);
+            height: 10px;
+            margin: 30px 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px 40px;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: 35px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 800;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #f1f5f9;
+            letter-spacing: -0.5px;
+        }
+
+        .section-description {
+            font-size: 0.95em;
+            color: #94a3b8;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .checklist-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .checklist-item.checked {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(59, 130, 246, 0.1));
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .checklist-item.checked:hover {
+            transform: translateX(8px);
+        }
+
+        .checkbox {
+            width: 28px;
+            height: 28px;
+            border: 2.5px solid #475569;
+            border-radius: 8px;
+            margin-right: 18px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .checklist-item.checked .checkbox {
+            background: linear-gradient(135deg, #22c55e, #10b981);
+            border-color: #22c55e;
+            transform: scale(1.1);
+        }
+
+        .checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: 900;
+            font-size: 18px;
+            display: none;
+        }
+
+        .checklist-item.checked .checkbox::after {
+            display: block;
+            animation: checkPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+            letter-spacing: -0.2px;
+        }
+
+        .item-bullets {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .item-bullets li {
+            font-size: 0.92em;
+            color: #94a3b8;
+            line-height: 1.7;
+            padding-left: 0;
+            position: relative;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: rgba(59, 130, 246, 0.2);
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .item-bullets li:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .item-bullets li.checked {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .sub-checkbox {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 2px solid #475569;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin-top: 2px;
+        }
+
+        .item-bullets li.checked .sub-checkbox {
+            background: linear-gradient(135deg, #22c55e, #10b981);
+            border-color: #22c55e;
+        }
+
+        .sub-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: 900;
+            display: none;
+        }
+
+        .item-bullets li.checked .sub-checkbox::after {
+            display: block;
+        }
+
+        .sub-text {
+            flex: 1;
+            color: #94a3b8;
+        }
+
+        .item-bullets li.checked .sub-text {
+            color: #cbd5e1;
+        }
+
+        .stop-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 10px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .rules-section {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            padding: 40px;
+            margin: 0;
+        }
+
+        .rules-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .rule-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+        }
+
+        .rule-card h3 {
+            color: #a78bfa;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-card h3::before {
+            content: '⚡';
+            font-size: 1.2em;
+        }
+
+        .rule-card p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+
+        .buttons-container {
+            padding: 30px 40px 40px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-reset:active {
+            transform: translateY(0);
+        }
+
+        .btn-print {
+            background: rgba(255,255,255,0.1);
+            color: #f1f5f9;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-print:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.9em;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* JOURNAL SECTION STYLES */
+        .journal-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 50px 40px;
+            border-top: 3px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .journal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .journal-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
+
+        .journal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .journal-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .journal-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .journal-card h3 {
+            color: #60a5fa;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .journal-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #cbd5e1;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .journal-input,
+        .journal-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .journal-input:focus,
+        .journal-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .journal-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #cbd5e1;
+            font-size: 0.95em;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .radio-label:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .radio-label input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .radio-label input[type="radio"]:checked + span {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .journal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-clear {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-clear:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-view {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-view:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            margin: 3% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: white;
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .modal-close {
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 30px 40px;
+            max-height: calc(85vh - 100px);
+            overflow-y: auto;
+        }
+
+        .journal-entry-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .journal-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .journal-entry-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #60a5fa;
+        }
+
+        .journal-entry-delete {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .journal-entry-delete:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+
+        .journal-entry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .journal-entry-field {
+            margin-bottom: 12px;
+        }
+
+        .journal-entry-label {
+            font-size: 0.8em;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .journal-entry-value {
+            color: #e2e8f0;
+            font-size: 1em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .journal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .journal-section {
+                padding: 30px 20px;
+            }
+
+            .journal-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .radio-group {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                background: white;
+            }
+
+            .buttons-container,
+            .progress-bar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="subtitle">ICT CONCEPT</div>
+                <h1>SILVER BULLET</h1>
+                <div class="tagline">Top-Down Decision Flow Checklist</div>
+            </div>
+        </div>
+
+        <div class="quote-section">
+            <div class="quote">
+                The Silver Bullet is a high-probability setup that occurs during specific time windows when smart money is most active. It's not about finding trades—it's about waiting for the market to deliver them to you.
+            </div>
+            <div class="quote-author">— Michael J. Huddleston (ICT)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="completedCount">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">Total Steps</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="percentComplete">0%</div>
+                <div class="stat-label">Progress</div>
+            </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div>
+                    <div class="section-title">TIME FILTER (GATEKEEPER)</div>
+                    <div class="section-description">Is price inside a Silver Bullet window?</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="1">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Confirm Current Time is Within Silver Bullet Window <span class="stop-badge">If NO → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li data-sub="1-1"><div class="sub-checkbox"></div><span class="sub-text">10:00–11:00 AM NY (Primary window - highest probability)</span></li>
+                        <li data-sub="1-2"><div class="sub-checkbox"></div><span class="sub-text">2:00–3:00 PM NY (Secondary window)</span></li>
+                        <li data-sub="1-3"><div class="sub-checkbox"></div><span class="sub-text">3:00–4:00 PM NY (Late session)</span></li>
+                        <li data-sub="1-4"><div class="sub-checkbox"></div><span class="sub-text">3:00–4:00 AM NY / London Kill Zone</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div>
+                    <div class="section-title">BIAS + DRAW ON LIQUIDITY (DOL)</div>
+                    <div class="section-description">Where is price being delivered?</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="2">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Identify Clear Directional Bias & Liquidity Target <span class="stop-badge">If NO → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li data-sub="2-1"><div class="sub-checkbox"></div><span class="sub-text">Buy-side liquidity (above recent highs) or Sell-side liquidity (below recent lows)</span></li>
+                        <li data-sub="2-2"><div class="sub-checkbox"></div><span class="sub-text">Prior session high/low acting as magnet</span></li>
+                        <li data-sub="2-3"><div class="sub-checkbox"></div><span class="sub-text">Equal highs (resistance) or equal lows (support)</span></li>
+                        <li data-sub="2-4"><div class="sub-checkbox"></div><span class="sub-text">Clear draw on liquidity must exist before entering</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div>
+                    <div class="section-title">SESSION NARRATIVE</div>
+                    <div class="section-description">Has liquidity already been delivered today?</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="3">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Assess Session Context & Liquidity Status <span class="stop-badge">If Done → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li data-sub="3-1"><div class="sub-checkbox"></div><span class="sub-text">Early session: Fresh, high probability for new runs</span></li>
+                        <li data-sub="3-2"><div class="sub-checkbox"></div><span class="sub-text">Mid session: Evaluate if major liquidity already taken</span></li>
+                        <li data-sub="3-3"><div class="sub-checkbox"></div><span class="sub-text">Late session: Lower probability, end-of-day behavior</span></li>
+                        <li data-sub="3-4"><div class="sub-checkbox"></div><span class="sub-text">London vs NY dynamics and overlap periods</span></li>
+                        <li data-sub="3-5"><div class="sub-checkbox"></div><span class="sub-text">If liquidity already swept and delivered, don't force trades</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div>
+                    <div class="section-title">MARKET CONDITION</div>
+                    <div class="section-description">Is price expanding or in balance?</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="4">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Confirm Expansion/Displacement is Present <span class="stop-badge">If Balance → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li data-sub="4-1"><div class="sub-checkbox"></div><span class="sub-text">EXPANSION: Clear displacement with urgency and intent ✓</span></li>
+                        <li data-sub="4-2"><div class="sub-checkbox"></div><span class="sub-text">BALANCE: Overlapping price action, choppy, no clear direction ✗</span></li>
+                        <li data-sub="4-3"><div class="sub-checkbox"></div><span class="sub-text">Look for clean impulsive moves, not grinding consolidation</span></li>
+                        <li data-sub="4-4"><div class="sub-checkbox"></div><span class="sub-text">Avoid trading in tight ranges or indecision zones</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div>
+                    <div class="section-title">STRUCTURE + DISPLACEMENT</div>
+                    <div class="section-description">Has short-term structure shifted or expanded?</div>
+                </div>
+            </div>
+            <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Verify Impulsive Move & Clear Intent <span class="stop-badge">If NO → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Strong impulsive move in direction of bias</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Break of structure (BOS) or market structure shift (MSS)</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Clear intent visible - not hesitant or weak price action</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Displacement creates the setup, not slow grind</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <div>
+                    <div class="section-title">FAIR VALUE GAP (CORE REQUIREMENT)</div>
+                    <div class="section-description">Is there a clean FVG created by displacement?</div>
+                </div>
+            </div>
+            <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Identify Valid Fair Value Gap <span class="stop-badge">If NO → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Clean 3-candle imbalance with clear gap between wicks</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">NOT heavily overlapped or violated</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">NOT invalidated by price trading through it completely</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">FVG may form BEFORE the Silver Bullet window (pre-positioned)</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Must be created by displacement, not slow consolidation</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <div>
+                    <div class="section-title">RANGE & RISK VIABILITY</div>
+                    <div class="section-description">Is there sufficient distance to liquidity?</div>
+                </div>
+            </div>
+            <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Assess Risk-to-Reward Ratio <span class="stop-badge">If NO → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Sufficient distance from entry to liquidity target</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Reward justifies the risk (minimum 1:2, ideally 1:3+)</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">NOT a tiny scalp with poor R:R</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Consider spread, commissions, and realistic fill levels</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">If range is compressed, skip the trade</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <div>
+                    <div class="section-title">ENTRY EXECUTION</div>
+                    <div class="section-description">Is price trading into the FVG DURING the time window?</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="4">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Execute Entry Within FVG During Time Window</div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Price MUST enter FVG DURING the Silver Bullet window</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">NO anticipation - wait for price to actually reach the FVG</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">NO chasing - if price runs away, let it go</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Enter with limit order in the FVG or on confirmation</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Use lower timeframes (1m, 5m) for precision entry</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 9 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">9</div>
+                <div>
+                    <div class="section-title">STOP LOSS PLACEMENT</div>
+                    <div class="section-description">Protect your capital with proper stop placement</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="5">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Set Stop Loss Beyond Invalidation Point</div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Place beyond obvious wicks and recent swing points</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Allow for consequent encroachment (CE) - price can touch 50% of FVG</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">NOT at obvious midpoint where stop hunts occur</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Beyond the FVG completely, or behind order block</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Give the trade room to breathe - don't use tight stops</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 10 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">10</div>
+                <div>
+                    <div class="section-title">PROFIT MANAGEMENT</div>
+                    <div class="section-description">Manage the trade to reduce pressure</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="6">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Execute Profit Management Plan</div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Partial profits planned in advance (50% at 1:2 or first target)</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Reduce pressure early - don't let winners turn into losers</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Runner is optional, NOT forced - manage based on price action</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Move stop to break-even after securing partials</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Final target: opposing liquidity or major structure level</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 11 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">11</div>
+                <div>
+                    <div class="section-title">RE-ENGAGEMENT DECISION</div>
+                    <div class="section-description">Should you take another trade after win/loss?</div>
+                </div>
+            </div>
+            <div class="checklist-item" data-step="7">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                    <div class="item-title">Evaluate Re-Entry Criteria <span class="stop-badge">If NO → STOP</span></div>
+                    <ul class="item-bullets">
+                        <li><div class="sub-checkbox"></div><span class="sub-text">New displacement occurred creating fresh setup?</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">New FVG formed from new impulsive move?</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Still within the Silver Bullet time window?</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">Emotionally neutral and not revenge trading?</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">If ALL criteria met → Restart from Step 1</span></li>
+                        <li><div class="sub-checkbox"></div><span class="sub-text">If ANY criteria not met → STOP for the day</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ICT RULES SECTION -->
+        <div class="rules-section">
+            <h2 class="rules-title">ICT Silver Bullet Core Principles</h2>
+            
+            <div class="rule-card">
+                <h3>The Setup Comes to You</h3>
+                <p>"You don't go looking for Silver Bullets. You wait for the market to deliver them during specific times. If the setup isn't there, you don't trade. Period."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>Time is the Most Important Filter</h3>
+                <p>"The time windows are non-negotiable. Trading outside these windows is not a Silver Bullet setup. The algorithm delivers liquidity during specific times - respect that."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>Fair Value Gap is Mandatory</h3>
+                <p>"There must be a Fair Value Gap. Without an FVG, there is no Silver Bullet. The FVG is where smart money steps in - that's your entry."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>Wait for Displacement</h3>
+                <p>"You need to see expansion and displacement first. Choppy, overlapping price action is not a Silver Bullet. Wait for the market to show its hand with intent."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>Don't Force Trades</h3>
+                <p>"If the conditions aren't perfect, don't trade. Missing a trade is better than taking a bad one. You're building a track record, not gambling."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>One or Two High-Quality Setups</h3>
+                <p>"You don't need 10 trades a day. You need ONE or TWO perfect Silver Bullet setups. Quality over quantity - always."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>Partial Profits Are Your Friend</h3>
+                <p>"Take partials. Reduce pressure. Let the market prove it wants to give you more. Don't be greedy - secure profits and manage risk."</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>The Algorithm Runs on Time & Liquidity</h3>
+                <p>"The market is designed to seek liquidity at specific times. Silver Bullet windows are when that delivery happens. Align yourself with the algorithm."</p>
+            </div>
+        </div>
+
+        <!-- TRADE JOURNAL SECTION -->
+        <div class="journal-section">
+            <h2 class="journal-title">📝 Silver Bullet Trade Journal</h2>
+            <p class="journal-subtitle">Document every detail of your setup and execution</p>
+            
+            <div class="journal-grid">
+                <!-- Left Column -->
+                <div class="journal-column">
+                    <div class="journal-card">
+                        <h3>📅 Session Information</h3>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="tradeDate" class="journal-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Time Window</label>
+                            <select id="timeWindow" class="journal-input">
+                                <option value="">Select window...</option>
+                                <option value="10-11 AM NY">10:00-11:00 AM NY (Primary)</option>
+                                <option value="2-3 PM NY">2:00-3:00 PM NY</option>
+                                <option value="3-4 PM NY">3:00-4:00 PM NY</option>
+                                <option value="3-4 AM London">3:00-4:00 AM NY (London)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Session Phase</label>
+                            <select id="sessionPhase" class="journal-input">
+                                <option value="">Select phase...</option>
+                                <option value="Early">Early Session</option>
+                                <option value="Mid">Mid Session</option>
+                                <option value="Late">Late Session</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Instrument</label>
+                            <input type="text" id="instrument" class="journal-input" placeholder="e.g., NQ, ES, EURUSD">
+                        </div>
+                    </div>
+
+                    <div class="journal-card">
+                        <h3>🎯 Bias & Setup</h3>
+                        <div class="form-group">
+                            <label>Directional Bias</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="bias" value="Bullish">
+                                    <span>📈 Bullish</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="bias" value="Bearish">
+                                    <span>📉 Bearish</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Draw on Liquidity (DOL)</label>
+                            <textarea id="liquidity" class="journal-textarea" rows="3" placeholder="Describe the liquidity target (buy-side/sell-side, session highs/lows, equal highs/lows)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Market Structure</label>
+                            <textarea id="structure" class="journal-textarea" rows="3" placeholder="BOS/MSS observed, impulsive moves, displacement details"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="journal-card">
+                        <h3>📊 Fair Value Gap Details</h3>
+                        <div class="form-group">
+                            <label>FVG Timeframe</label>
+                            <select id="fvgTimeframe" class="journal-input">
+                                <option value="">Select timeframe...</option>
+                                <option value="1m">1 Minute</option>
+                                <option value="5m">5 Minute</option>
+                                <option value="15m">15 Minute</option>
+                                <option value="1h">1 Hour</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>FVG Quality</label>
+                            <select id="fvgQuality" class="journal-input">
+                                <option value="">Select quality...</option>
+                                <option value="Clean">Clean (no overlap)</option>
+                                <option value="Slightly overlapped">Slightly overlapped</option>
+                                <option value="Pre-positioned">Pre-positioned before window</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>FVG Price Range</label>
+                            <input type="text" id="fvgRange" class="journal-input" placeholder="e.g., 18,450 - 18,465">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="journal-column">
+                    <div class="journal-card">
+                        <h3>💰 Trade Execution</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Entry Price</label>
+                                <input type="number" id="entryPrice" class="journal-input" step="0.01" placeholder="Entry">
+                            </div>
+                            <div class="form-group">
+                                <label>Entry Time</label>
+                                <input type="time" id="entryTime" class="journal-input">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Stop Loss</label>
+                                <input type="number" id="stopLoss" class="journal-input" step="0.01" placeholder="SL">
+                            </div>
+                            <div class="form-group">
+                                <label>Initial Target</label>
+                                <input type="number" id="target" class="journal-input" step="0.01" placeholder="TP">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Position Size</label>
+                            <input type="text" id="positionSize" class="journal-input" placeholder="e.g., 2 contracts, 0.5 lots">
+                        </div>
+                        <div class="form-group">
+                            <label>Risk Amount ($)</label>
+                            <input type="number" id="riskAmount" class="journal-input" step="0.01" placeholder="Risk in $">
+                        </div>
+                        <div class="form-group">
+                            <label>Risk % of Account</label>
+                            <input type="number" id="riskPercent" class="journal-input" step="0.1" placeholder="e.g., 1.5%">
+                        </div>
+                    </div>
+
+                    <div class="journal-card">
+                        <h3>📈 Partials & Management</h3>
+                        <div class="form-group">
+                            <label>Partial 1 (Price / Size / Time)</label>
+                            <input type="text" id="partial1" class="journal-input" placeholder="e.g., 18,480 / 50% / 10:45 AM">
+                        </div>
+                        <div class="form-group">
+                            <label>Partial 2 (Price / Size / Time)</label>
+                            <input type="text" id="partial2" class="journal-input" placeholder="e.g., 18,500 / 25% / 11:05 AM">
+                        </div>
+                        <div class="form-group">
+                            <label>Final Exit (Price / Time)</label>
+                            <input type="text" id="finalExit" class="journal-input" placeholder="e.g., 18,520 / 11:20 AM">
+                        </div>
+                        <div class="form-group">
+                            <label>Break-Even Move</label>
+                            <select id="breakEven" class="journal-input">
+                                <option value="">Did you move to BE?</option>
+                                <option value="Yes - After 1:1">Yes - After 1:1</option>
+                                <option value="Yes - After partial">Yes - After partial</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stop Trail Strategy</label>
+                            <textarea id="trailStop" class="journal-textarea" rows="2" placeholder="How did you trail your stop? Behind order blocks, structure?"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="journal-card">
+                        <h3>💵 Trade Results</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Gross P&L ($)</label>
+                                <input type="number" id="grossPL" class="journal-input" step="0.01" placeholder="Profit/Loss">
+                            </div>
+                            <div class="form-group">
+                                <label>R-Multiple</label>
+                                <input type="number" id="rMultiple" class="journal-input" step="0.1" placeholder="e.g., 2.5R">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Outcome</label>
+                            <select id="outcome" class="journal-input">
+                                <option value="">Select outcome...</option>
+                                <option value="Full Win">✅ Full Win</option>
+                                <option value="Partial Win">✅ Partial Win</option>
+                                <option value="Break Even">➖ Break Even</option>
+                                <option value="Partial Loss">❌ Partial Loss</option>
+                                <option value="Full Loss">❌ Full Loss</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Holding Time</label>
+                            <input type="text" id="holdingTime" class="journal-input" placeholder="e.g., 35 minutes">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width Cards -->
+            <div class="journal-card journal-full">
+                <h3>🧠 Trade Psychology & Execution Quality</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Emotional State (Entry)</label>
+                        <select id="emotionEntry" class="journal-input">
+                            <option value="">How did you feel entering?</option>
+                            <option value="Confident">Confident & Patient</option>
+                            <option value="Neutral">Neutral</option>
+                            <option value="Anxious">Anxious/Eager</option>
+                            <option value="FOMO">FOMO</option>
+                            <option value="Revenge">Revenge Trading</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Emotional State (Exit)</label>
+                        <select id="emotionExit" class="journal-input">
+                            <option value="">How did you feel exiting?</option>
+                            <option value="Satisfied">Satisfied</option>
+                            <option value="Relieved">Relieved</option>
+                            <option value="Regret">Regret (left money)</option>
+                            <option value="Frustrated">Frustrated</option>
+                            <option value="Panicked">Panicked</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Checklist Adherence</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="adherence" value="100%">
+                            <span>✅ 100% - Perfect execution</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="adherence" value="80%">
+                            <span>🟡 80% - Minor deviations</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="adherence" value="50%">
+                            <span>🟠 50% - Several mistakes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="adherence" value="<50%">
+                            <span>🔴 <50% - Poor discipline</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="journal-card journal-full">
+                <h3>📝 Detailed Trade Notes</h3>
+                <div class="form-group">
+                    <label>What Worked Well?</label>
+                    <textarea id="whatWorked" class="journal-textarea" rows="3" placeholder="What did you do correctly? Patience, entry timing, risk management, etc."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>What Could Be Improved?</label>
+                    <textarea id="whatImprove" class="journal-textarea" rows="3" placeholder="Entry too early/late? Stop too tight? Didn't take partials? Chased price?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Key Lessons & Insights</label>
+                    <textarea id="lessons" class="journal-textarea" rows="3" placeholder="What did this trade teach you? Any patterns emerging? What will you do differently next time?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Additional Notes</label>
+                    <textarea id="additionalNotes" class="journal-textarea" rows="4" placeholder="Screenshots saved? Chart annotations? News events? Anything else worth remembering?"></textarea>
+                </div>
+            </div>
+
+            <div class="journal-actions">
+                <button class="btn btn-save" onclick="saveJournal()">💾 Save Journal Entry</button>
+                <button class="btn btn-clear" onclick="clearJournal()">🗑️ Clear Form</button>
+                <button class="btn btn-view" onclick="viewJournals()">📚 View All Entries</button>
+            </div>
+        </div>
+
+        <!-- Journal History Modal -->
+        <div id="journalModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📚 Trading Journal History</h2>
+                    <span class="modal-close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body" id="journalHistory">
+                    <!-- Journal entries will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons-container">
+            <button class="btn btn-reset" onclick="resetChecklist()">🔄 Reset Checklist</button>
+            <button class="btn btn-print" onclick="window.print()">🖨️ Print Checklist</button>
+        </div>
+
+        <div class="footer">
+            Built for disciplined ICT traders | Track your Silver Bullet setups with precision
+        </div>
+    </div>
+
+    <script>
+        // Load saved state from localStorage
+        function loadState() {
+            const saved = localStorage.getItem('ictSilverBulletChecklist');
+            if (saved) {
+                const items = document.querySelectorAll('.checklist-item');
+                const states = JSON.parse(saved);
+                items.forEach((item, index) => {
+                    if (states[index]) {
+                        item.classList.add('checked');
+                    }
+                });
+            }
+            updateProgress();
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            const items = document.querySelectorAll('.checklist-item');
+            const states = Array.from(items).map(item => item.classList.contains('checked'));
+            localStorage.setItem('ictSilverBulletChecklist', JSON.stringify(states));
+        }
+
+        // Toggle checklist item - improved for mobile
+        function toggleItem(element) {
+            // Prevent double-firing on mobile
+            if (element.dataset.toggling === 'true') return;
+            element.dataset.toggling = 'true';
+            
+            element.classList.toggle('checked');
+            saveState();
+            updateProgress();
+            
+            // Add haptic feedback effect
+            element.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                element.style.transform = '';
+                element.dataset.toggling = 'false';
+            }, 100);
+        }
+
+        // Add touch event listeners for better mobile support
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.checklist-item');
+            items.forEach(item => {
+                // Remove onclick and add proper event listeners
+                item.removeAttribute('onclick');
+                
+                // Add both click and touch events for main checkbox
+                item.addEventListener('click', function(e) {
+                    // Don't toggle if clicking on sub-checkbox
+                    if (e.target.closest('.item-bullets li')) {
+                        return;
+                    }
+                    e.preventDefault();
+                    toggleItem(this);
+                });
+                
+                item.addEventListener('touchend', function(e) {
+                    // Don't toggle if clicking on sub-checkbox
+                    if (e.target.closest('.item-bullets li')) {
+                        return;
+                    }
+                    e.preventDefault();
+                    toggleItem(this);
+                });
+            });
+
+            // Handle sub-checkbox clicks
+            const subItems = document.querySelectorAll('.item-bullets li');
+            subItems.forEach(subItem => {
+                subItem.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent parent toggle
+                    toggleSubItem(this);
+                });
+                
+                subItem.addEventListener('touchend', function(e) {
+                    e.stopPropagation(); // Prevent parent toggle
+                    e.preventDefault();
+                    toggleSubItem(this);
+                });
+            });
+
+            // Load sub-checkbox states
+            loadSubCheckboxStates();
+        });
+
+        // Toggle sub-checkbox item
+        function toggleSubItem(element) {
+            if (element.dataset.toggling === 'true') return;
+            element.dataset.toggling = 'true';
+            
+            element.classList.toggle('checked');
+            saveSubCheckboxStates();
+            
+            setTimeout(() => {
+                element.dataset.toggling = 'false';
+            }, 100);
+        }
+
+        // Save sub-checkbox states
+        function saveSubCheckboxStates() {
+            const subItems = document.querySelectorAll('.item-bullets li');
+            const states = {};
+            subItems.forEach((item, index) => {
+                states[index] = item.classList.contains('checked');
+            });
+            localStorage.setItem('ictSubCheckboxes', JSON.stringify(states));
+        }
+
+        // Load sub-checkbox states
+        function loadSubCheckboxStates() {
+            const saved = localStorage.getItem('ictSubCheckboxes');
+            if (saved) {
+                const states = JSON.parse(saved);
+                const subItems = document.querySelectorAll('.item-bullets li');
+                subItems.forEach((item, index) => {
+                    if (states[index]) {
+                        item.classList.add('checked');
+                    }
+                });
+            }
+        }
+
+        // Update progress bar and stats
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            const checkedItems = document.querySelectorAll('.checklist-item.checked');
+            const total = items.length;
+            const completed = checkedItems.length;
+            const percentage = Math.round((completed / total) * 100);
+
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('percentComplete').textContent = percentage + '%';
+        }
+
+        // Reset checklist
+        function resetChecklist() {
+            if (confirm('🔄 Are you sure you want to reset the checklist?\n\nThis will uncheck all items and sub-items and prepare for a new trade setup.')) {
+                const items = document.querySelectorAll('.checklist-item');
+                items.forEach(item => {
+                    item.classList.remove('checked');
+                    // Add animation
+                    item.style.opacity = '0.5';
+                    setTimeout(() => {
+                        item.style.opacity = '';
+                    }, 300);
+                });
+                
+                // Reset sub-checkboxes
+                const subItems = document.querySelectorAll('.item-bullets li');
+                subItems.forEach(item => {
+                    item.classList.remove('checked');
+                });
+                
+                localStorage.removeItem('ictSilverBulletChecklist');
+                localStorage.removeItem('ictSubCheckboxes');
+                updateProgress();
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            loadState();
+            
+            // Register Service Worker for PWA
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed'));
+            }
+        };
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'R' to reset
+            if (e.key === 'r' || e.key === 'R') {
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    resetChecklist();
+                }
+            }
+            // Press 'P' to print
+            if (e.key === 'p' || e.key === 'P') {
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    window.print();
+                }
+            }
+        });
+
+        // ==================== JOURNAL FUNCTIONS ====================
+
+        // Save journal entry
+        function saveJournal() {
+            const journalEntry = {
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                
+                // Session Info
+                date: document.getElementById('tradeDate').value,
+                timeWindow: document.getElementById('timeWindow').value,
+                sessionPhase: document.getElementById('sessionPhase').value,
+                instrument: document.getElementById('instrument').value,
+                
+                // Bias & Setup
+                bias: document.querySelector('input[name="bias"]:checked')?.value || '',
+                liquidity: document.getElementById('liquidity').value,
+                structure: document.getElementById('structure').value,
+                
+                // FVG Details
+                fvgTimeframe: document.getElementById('fvgTimeframe').value,
+                fvgQuality: document.getElementById('fvgQuality').value,
+                fvgRange: document.getElementById('fvgRange').value,
+                
+                // Trade Execution
+                entryPrice: document.getElementById('entryPrice').value,
+                entryTime: document.getElementById('entryTime').value,
+                stopLoss: document.getElementById('stopLoss').value,
+                target: document.getElementById('target').value,
+                positionSize: document.getElementById('positionSize').value,
+                riskAmount: document.getElementById('riskAmount').value,
+                riskPercent: document.getElementById('riskPercent').value,
+                
+                // Partials
+                partial1: document.getElementById('partial1').value,
+                partial2: document.getElementById('partial2').value,
+                finalExit: document.getElementById('finalExit').value,
+                breakEven: document.getElementById('breakEven').value,
+                trailStop: document.getElementById('trailStop').value,
+                
+                // Results
+                grossPL: document.getElementById('grossPL').value,
+                rMultiple: document.getElementById('rMultiple').value,
+                outcome: document.getElementById('outcome').value,
+                holdingTime: document.getElementById('holdingTime').value,
+                
+                // Psychology
+                emotionEntry: document.getElementById('emotionEntry').value,
+                emotionExit: document.getElementById('emotionExit').value,
+                adherence: document.querySelector('input[name="adherence"]:checked')?.value || '',
+                
+                // Notes
+                whatWorked: document.getElementById('whatWorked').value,
+                whatImprove: document.getElementById('whatImprove').value,
+                lessons: document.getElementById('lessons').value,
+                additionalNotes: document.getElementById('additionalNotes').value
+            };
+
+            // Validate required fields
+            if (!journalEntry.date || !journalEntry.timeWindow || !journalEntry.instrument) {
+                alert('⚠️ Please fill in at least Date, Time Window, and Instrument');
+                return;
+            }
+
+            // Get existing journals
+            let journals = JSON.parse(localStorage.getItem('ictJournals') || '[]');
+            
+            // Add new entry
+            journals.unshift(journalEntry); // Add to beginning
+            
+            // Save to localStorage
+            localStorage.setItem('ictJournals', JSON.stringify(journals));
+            
+            // Success feedback
+            alert('✅ Journal entry saved successfully!');
+            
+            // Clear form
+            clearJournal();
+        }
+
+        // Clear journal form
+        function clearJournal() {
+            if (confirm('Clear all journal fields?')) {
+                document.querySelectorAll('.journal-input, .journal-textarea').forEach(input => {
+                    input.value = '';
+                });
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                });
+            }
+        }
+
+        // View all journals
+        function viewJournals() {
+            const journals = JSON.parse(localStorage.getItem('ictJournals') || '[]');
+            const historyDiv = document.getElementById('journalHistory');
+            
+            if (journals.length === 0) {
+                historyDiv.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <h3>No Journal Entries Yet</h3>
+                        <p>Start tracking your Silver Bullet trades to build your trading history!</p>
+                    </div>
+                `;
+            } else {
+                historyDiv.innerHTML = journals.map((entry, index) => `
+                    <div class="journal-entry-card">
+                        <div class="journal-entry-header">
+                            <div class="journal-entry-title">
+                                ${entry.instrument} - ${entry.date} - ${entry.timeWindow}
+                            </div>
+                            <button class="journal-entry-delete" onclick="deleteJournal(${entry.id})">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                        <div class="journal-entry-grid">
+                            ${entry.bias ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Bias</div>
+                                    <div class="journal-entry-value">${entry.bias}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.entryPrice ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Entry</div>
+                                    <div class="journal-entry-value">${entry.entryPrice} @ ${entry.entryTime || 'N/A'}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.stopLoss ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Stop Loss</div>
+                                    <div class="journal-entry-value">${entry.stopLoss}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.target ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Target</div>
+                                    <div class="journal-entry-value">${entry.target}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.outcome ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Outcome</div>
+                                    <div class="journal-entry-value">${entry.outcome}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.grossPL ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">P&L</div>
+                                    <div class="journal-entry-value" style="color: ${parseFloat(entry.grossPL) >= 0 ? '#22c55e' : '#ef4444'}">
+                                        $${entry.grossPL} ${entry.rMultiple ? `(${entry.rMultiple}R)` : ''}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${entry.positionSize ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Position Size</div>
+                                    <div class="journal-entry-value">${entry.positionSize}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.riskPercent ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Risk %</div>
+                                    <div class="journal-entry-value">${entry.riskPercent}%</div>
+                                </div>
+                            ` : ''}
+                            ${entry.fvgTimeframe ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">FVG Timeframe</div>
+                                    <div class="journal-entry-value">${entry.fvgTimeframe}</div>
+                                </div>
+                            ` : ''}
+                            ${entry.adherence ? `
+                                <div class="journal-entry-field">
+                                    <div class="journal-entry-label">Checklist Adherence</div>
+                                    <div class="journal-entry-value">${entry.adherence}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                        ${entry.liquidity ? `
+                            <div class="journal-entry-field" style="margin-top: 15px;">
+                                <div class="journal-entry-label">Draw on Liquidity</div>
+                                <div class="journal-entry-value">${entry.liquidity}</div>
+                            </div>
+                        ` : ''}
+                        ${entry.whatWorked ? `
+                            <div class="journal-entry-field" style="margin-top: 15px;">
+                                <div class="journal-entry-label">What Worked</div>
+                                <div class="journal-entry-value">${entry.whatWorked}</div>
+                            </div>
+                        ` : ''}
+                        ${entry.whatImprove ? `
+                            <div class="journal-entry-field" style="margin-top: 15px;">
+                                <div class="journal-entry-label">What to Improve</div>
+                                <div class="journal-entry-value">${entry.whatImprove}</div>
+                            </div>
+                        ` : ''}
+                        ${entry.lessons ? `
+                            <div class="journal-entry-field" style="margin-top: 15px;">
+                                <div class="journal-entry-label">Key Lessons</div>
+                                <div class="journal-entry-value">${entry.lessons}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('journalModal').style.display = 'block';
+        }
+
+        // Delete journal entry
+        function deleteJournal(id) {
+            if (confirm('Are you sure you want to delete this journal entry?')) {
+                let journals = JSON.parse(localStorage.getItem('ictJournals') || '[]');
+                journals = journals.filter(entry => entry.id !== id);
+                localStorage.setItem('ictJournals', JSON.stringify(journals));
+                viewJournals(); // Refresh the view
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('journalModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('journalModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
